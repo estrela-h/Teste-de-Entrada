@@ -1,3 +1,5 @@
+package Main;
+
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,7 +19,9 @@ public class Main {
                     Path pathDestination = Paths.get(savePath);
                     Files.copy(inputStream, pathDestination, StandardCopyOption.REPLACE_EXISTING);
                 }
+                Methods.unzipFile(i + "T2025", "./Files");
                 System.out.println("File download successfully to: " + savePath);
+                Methods.readFile(i + "T2025");
             }
         } catch (MalformedURLException e) {
             System.err.println("Invalid URL: " + e.getMessage());
