@@ -3,13 +3,14 @@ package Main;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class Methods {
-    public static void unzipFile (String zipFile, String destFolder) throws IOException {
+
+    //Método para extração de um arquivo zip.
+    public static void unzipFile(String zipFile, String destFolder) throws IOException {
         try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFile))) {
             ZipEntry entry;
             byte[] buffer = new byte[1024];
@@ -25,18 +26,13 @@ public class Methods {
                     }
                 }
             }
+        } catch (Exception e) {
+            System.err.println("Failed on unzip file: " + e.getMessage());
         }
     }
 
-    public static void readFile(String fileName) {
-        Path filePath = Paths.get("./");
-        String[] extensions = {".csv", ".txt", ".xlsx"};
-        for (int i = 0; i < 3; i++) {
-            filePath = Paths.get("./Files/" + fileName + extensions[i]);
-            if (Files.exists(filePath)) {
-                i = 3;
-            }
-        }
+    //Método para ler os arquivos e encontrar dados de despesas.
+    public static void readFile(Path filePath) {
         try {
             List<String> lines = Files.readAllLines(filePath);
             for (int i = 0; i < lines.size(); i++) {
@@ -50,7 +46,7 @@ public class Methods {
                     i = lines.size();
                 } else if (test3 != -1) {
                     i = lines.size();
-                } else if (i == lines.size()-1) {
+                } else if (i == lines.size() - 1) {
                     Files.deleteIfExists(filePath);
                 }
             }
@@ -61,4 +57,3 @@ public class Methods {
         }
     }
 }
-
